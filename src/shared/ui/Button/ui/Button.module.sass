@@ -1,0 +1,36 @@
+$primary-bgcolor: #77bcbd
+$discard-bgcolor: #d32727
+$accept-bgcolor: #5ab43f
+$edit-bgcolor: #3cabdf
+.Button
+    padding: 10px 15px
+    outline: none
+    background: transparent
+    border-radius: 5px
+    border: none
+    cursor: pointer
+    text-align: center 
+    transition: 0.1s
+.primary
+    background-color: $primary-bgcolor
+    color: #fff
+    &:hover
+        background-color: darken($primary-bgcolor, 10%) 
+.outline
+    border: 1px solid $primary-bgcolor
+    color: $primary-bgcolor
+    background-color: transparent
+    &:hover
+        background-color: $primary-bgcolor
+        color: #fff
+.accept, .discard, .edit
+    border-radius: 0
+    color: #fff
+.accept
+    background-color: $accept-bgcolor
+.discard
+    background-color: $discard-bgcolor  
+.edit
+    background-color: $edit-bgcolor
+    
+

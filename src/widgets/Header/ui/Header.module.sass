@@ -1,0 +1,27 @@
+.header
+    // local vars
+    $header-padding: 40px 0
+    $header-bgcolor: #fff
+    $primary-font: 'Ponter' 
+    $secondary-font: 'Consolas'
+    $header-border-color: #e0e0e0
+    // styles
+    width: 100%
+    //padding: $header-padding
+    background-color: $header-bgcolor
+    border-bottom: 1px solid $header-border-color
+    &Wrapper
+        width: 100%
+        display: flex
+        justify-content: space-between
+    &Logo
+        width: 10%
+        height: 100px
+    &Links
+        display: flex
+        justify-content: space-between
+        align-items: center
+        width: 20%
+    &Link
+        font-family: $secondary-font
+        font-size: 16px  
