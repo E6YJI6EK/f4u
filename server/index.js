@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+const { error } = require('console');
 
 const app = express();
 
@@ -30,14 +31,24 @@ app.get('/*', (req, res) => {
 
 app.post('/chatgpt', async (req, res) => {
 
-    const promise = await axios.post(
-        "http://127.0.0.1:5000",
-        req.body
-    );
+    try {
+        const promise = await axios.post(
+            "http://127.0.0.1:5000",
+            req.body
+        );
+    
+        const { data } = promise; 
 
-    const { data } = promise; 
-
-    res.send(data);
+        if (!data) {
+            throw new Error("data is null");
+        }
+    
+        console.log(data);
+        res.send(data);
+    }
+    catch (e) {
+        console.log(e)
+    }
 });
 
 

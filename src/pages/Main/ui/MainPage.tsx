@@ -1,63 +1,35 @@
-import { FC, Suspense, useRef, useState } from 'react'
+import { FC, Suspense, useCallback, useRef } from 'react'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import cls from './MainPage.module.sass'
 import { IngredientsList } from '@/entities/IngredientsList'
 import Button, { ButtonTheme } from '@/shared/ui/Button'
 import { useSelector } from 'react-redux'
 import { getIngredients } from '@/entities/IngredientsList/model/selectors'
-import axios from 'axios'
+import { postQueryToChatGPT } from '@/features/GenerateRecipes/model/services/postQueryToChatGPT/postQueryToChatGPT'
+import { useAppDispatch } from '@/app/providers/StoreProvider/config/store'
+import Loader from '@/shared/ui/Loader'
+import Recipes from '@/features/GenerateRecipes'
+import { scrollTo } from '@/shared/lib/scrollTo/scrollTo'
+
 
 interface MainPageProps { }
 
-interface chatGPTRequest {
-  answer: string|null;
-}
+
 
 const MainPage: FC<MainPageProps> = () => {
   const ingredients = useSelector(getIngredients);
-  const [answer, setAnswer] = useState<chatGPTRequest>({answer:null});
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const answerRef = useRef<HTMLDivElement | null>(null);
 
-  function postIngredients() {
-    const data = {
-      "ingredients": ingredients
-    }
-    setAnswer({answer:null});
-    setIsLoading(true);
-    axios.post("http://127.0.0.1:3000/chatgpt", data, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => {
-        console.log("Успех");
-        console.log(response.data);
-        setIsLoading(false);
-        setAnswer(response.data);
-      })
-      .catch(error => {
-        console.log("Failure =((");
-        console.log(error);
-        setIsLoading(false);
-        setAnswer({answer:"Ашибка!!!"})
-      })
-  }
+  const dispatch = useAppDispatch();
 
-  function handleClick() {
-    if (answerRef.current != null) {
-      window.scrollTo({
-        top: answerRef.current.offsetTop,
-        behavior: 'smooth'
-      });
-    }
-
-    postIngredients();
-  }
+  const handleClick = useCallback(() => {
+    scrollTo(answerRef);
+    dispatch(postQueryToChatGPT({ ingredients: ingredients }))
+  }, [dispatch, ingredients])
 
   return (
     <div className={classNames(cls.main)}>
-      <Suspense fallback="Loading...">
+      <Suspense fallback={<Loader />}>
         <div className="container">
           <div className={cls.mainWrapper}>
             <div className={cls.mainHero}>
@@ -80,19 +52,7 @@ const MainPage: FC<MainPageProps> = () => {
                 </Button>
               </div>
             </div>
-            <div className={classNames(cls.answer, {}, [])} ref={answerRef}>
-              <h1 className={cls.title}>Результат</h1>
-              {
-                isLoading ?
-                  (
-                    <div>Loading...</div>
-                  )
-                  :
-                  (
-                    <p>{answer.answer}</p>
-                  )
-              }
-            </div>
+            <Recipes ref={answerRef}/>
           </div>
         </div>
       </Suspense>
