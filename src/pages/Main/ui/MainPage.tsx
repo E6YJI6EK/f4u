@@ -29,33 +29,31 @@ const MainPage: FC<MainPageProps> = () => {
 
   return (
     <div className={classNames(cls.main)}>
-      <Suspense fallback={<Loader />}>
-        <div className="container">
-          <div className={cls.mainWrapper}>
-            <div className={cls.mainHero}>
-              <IngredientsList className={cls.ingredients} />
-              <div className={cls.mainDescription}>
-                <p>
-                  Хотите что-нибудь приготовить, но не знаете что? Тогда наш сервис Food4You поможет Вам.
-                </p>
-                <p>
-                  Food4You - сервис, основанный на chatGPT-3, поможет Вам подобрать блюдо исходя из имеющихся у Вас продуктов.
-                </p>
-                <p>
-                  Для этого добавьте в список слева нужные ингредиенты, нажмите на кнопку "Приготовить" и наслаждайтесь!
-                </p>
-                <Button
-                  theme={ButtonTheme.PRIMARY}
-                  onClick={handleClick}
-                >
-                  Приготовить
-                </Button>
-              </div>
+      <div className="container">
+        <div className={cls.mainWrapper}>
+          <div className={cls.mainHero}>
+            <IngredientsList className={cls.ingredients} />
+            <div className={cls.mainDescription}>
+              <p>
+                Хотите что-нибудь приготовить, но не знаете что? Тогда наш сервис Food4You поможет Вам.
+              </p>
+              <p>
+                Food4You - сервис, основанный на chatGPT-3, поможет Вам подобрать блюдо исходя из имеющихся у Вас продуктов.
+              </p>
+              <p>
+                Для этого добавьте в список слева нужные ингредиенты, нажмите на кнопку "Приготовить" и наслаждайтесь!
+              </p>
+              <Button
+                theme={ButtonTheme.PRIMARY}
+                onClick={handleClick}
+              >
+                Приготовить
+              </Button>
             </div>
-            <Recipes ref={answerRef}/>
           </div>
+          <Recipes ref={answerRef} />
         </div>
-      </Suspense>
+      </div>
     </div>
   )
 }

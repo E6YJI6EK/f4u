@@ -1,24 +1,14 @@
 import { FC } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Header.module.sass';
-import { Link } from '@/shared/config/Link/Link';
 import logo from '@/assets/logo/logo.png'
+import { Link } from 'react-router-dom';
+import { RouterPath } from '@/shared/config/routeConfig/routeConfig';
 
-interface HeaderProps {}
+interface HeaderProps { }
 
-export const Header:FC<HeaderProps> = () => {
-    const links: Link[] = [
-        {
-            title: "Главная",
-            href: "#"
-        }, 
-        {
-            title: "Популярное", 
-            href: "#"
-        }
-    ]
-
-    return(
+export const Header: FC<HeaderProps> = () => {
+    return (
         <div className={classNames(cls.header)}>
             <div className="container">
                 <div className={cls.headerWrapper}>
@@ -26,13 +16,16 @@ export const Header:FC<HeaderProps> = () => {
                         <img src={logo} alt="" />
                     </div>
                     <div className={cls.headerLinks}>
-                        {
-                            links.map(link => (
-                            <div className={cls.headerLink}>
-                                <a href={link.href}>{link.title}</a>   
-                            </div>  
-                            ))
-                        }
+                        <div className={cls.headerLink}>
+                            <Link to={RouterPath.main}>
+                                Главная
+                            </Link>
+                        </div>
+                        <div className={cls.headerLink}>
+                            <Link to={RouterPath.calculator}>
+                                Калькулятор каллорий
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
