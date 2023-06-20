@@ -18,7 +18,7 @@ export const Select:FC<SelectProps> = (props) => {
         <select {...other} className={classNames(cls.Select, {[cls[theme]]: true}, [className||""])} >
             {
                 options.map(option => (
-                    <option value={option}>{option}</option>
+                    <option value={option} key={option}>{option}</option>
                 ))
             }
         </select>

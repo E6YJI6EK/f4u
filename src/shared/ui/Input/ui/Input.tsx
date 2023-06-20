@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Input.module.sass';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     theme: InputTheme,
     fontSize?:number;
 }

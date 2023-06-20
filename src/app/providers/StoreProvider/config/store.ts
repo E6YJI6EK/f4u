@@ -4,11 +4,13 @@ import { StateSchema } from "./StateSchema";
 import { RecipesReducer } from "@/features/GenerateRecipes";
 import thunkMiddleware from 'redux-thunk';
 import { useDispatch } from "react-redux";
+import { CaloriesReducer } from "@/features/CalculateCalories";
 
 export function createReduxStore(initialState?: StateSchema) {
   const rootReducers: ReducersMapObject<StateSchema> = {
     ingredientsList: IngredientReducer,
-    recipesList: RecipesReducer
+    calories: CaloriesReducer,
+    recipesList: RecipesReducer,
   }
    return configureStore<StateSchema>({
     reducer: rootReducers,

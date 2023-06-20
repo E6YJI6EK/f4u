@@ -1,8 +1,6 @@
 import { FC } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './IngredientsList.module.sass';
-import { useDispatch } from 'react-redux';
-import { IngredientActions } from '@/entities/IngredientsList/model/slice/IngredientSlice';
 import { Ingredient } from './Ingredient';
 import { getIngredients } from '../model/selectors';
 import { useSelector } from 'react-redux';
@@ -14,7 +12,6 @@ interface IngredientsListProps {
 
 export const IngredientsList: FC<IngredientsListProps> = props => {
 
-    const dispatch = useDispatch()
     const ingredients = useSelector(getIngredients)
 
     return (
@@ -25,7 +22,7 @@ export const IngredientsList: FC<IngredientsListProps> = props => {
                     ingredients.length !== 0
                         ?
                         ingredients.map(ingredient => (
-                            <li>
+                            <li key={ingredient.name}>
                                 <Ingredient ingredient={ingredient} />
                             </li>
 

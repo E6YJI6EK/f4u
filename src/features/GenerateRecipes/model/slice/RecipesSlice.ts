@@ -1,6 +1,4 @@
-import { IngredientsListItem } from "@/entities/IngredientsList/model/types/ingredientSchema";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice } from "@reduxjs/toolkit";
 import { chatGPTResponseSchema } from "../types/chatGPTResponseSchema";
 import { postQueryToChatGPT } from "../services/postQueryToChatGPT/postQueryToChatGPT";
 
