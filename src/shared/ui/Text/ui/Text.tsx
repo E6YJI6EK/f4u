@@ -7,12 +7,14 @@ export enum TextStyles {
 
 interface TextProps {
     className?: string;
-    style: TextStyles;
+    style?: TextStyles;
     align?: "left" | "center" | "right";
     size?: string;
     color?: string;
     font?: string;
-    children: React.ReactNode;
+    textIndent?: string;
+    lineHeight?: string
+    children?: React.ReactNode;
 }
 
 const Text: FC<TextProps> = (props) => {
@@ -23,19 +25,24 @@ const Text: FC<TextProps> = (props) => {
         size,
         color,
         font,
+        textIndent,
+        lineHeight,
         children
     } = props
 
+    const styles = {
+        textAlign: align,
+        fontSize: size,
+        color: color,
+        fontFamily: font,
+        textIndent: textIndent,
+        lineHeight: lineHeight
+    }
     if (style === TextStyles.TITLE) {
         return (
             <h1
                 className={className}
-                style={{
-                    textAlign: align,
-                    fontSize: size,
-                    color: color,
-                    fontFamily: font
-                }}
+                style={styles}
             >
                 {children}
             </h1>
@@ -45,12 +52,7 @@ const Text: FC<TextProps> = (props) => {
         return (
             <p
                 className={className}
-                style={{
-                    textAlign: align,
-                    fontSize: size,
-                    color: color,
-                    fontFamily: font
-                }}
+                style={styles}
             >
                 {children}
             </p>
@@ -59,12 +61,7 @@ const Text: FC<TextProps> = (props) => {
 
     return <span
         className={className}
-        style={{
-            textAlign: align,
-            fontSize: size,
-            color: color,
-            fontFamily: font
-        }}
+        style={styles}
     >
         {children}
     </span>;
